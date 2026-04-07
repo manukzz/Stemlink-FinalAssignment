@@ -2,6 +2,7 @@ from pathlib import Path
 
 from fastapi import FastAPI, File, HTTPException, Request, UploadFile, status
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 
 from .models import QuestionRequest, QAResponse
 from .services.qa_service import answer_question
@@ -9,15 +10,22 @@ from .services.indexing_service import index_pdf_file
 
 
 app = FastAPI(
-    title="Class 12 Multi-Agent RAG Demo",
+    title="Multi-Agent RAG ",
     description=(
-        "Demo API for asking questions about a vector databases paper. "
+        "API for asking questions about a vector databases paper. "
         "The `/qa` endpoint currently returns placeholder responses and "
         "will be wired to a multi-agent RAG pipeline in later user stories."
     ),
     version="0.1.0",
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://stemlink-finalassignment-frontend.vercel.app"],  
+    allow_credentials=True,
+    allow_methods=["https://stemlink-finalassignment-frontend.vercel.app"],
+    allow_headers=["https://stemlink-finalassignment-frontend.vercel.app"],
+)
 
 @app.exception_handler(Exception)
 async def unhandled_exception_handler(
