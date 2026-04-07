@@ -21,10 +21,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://stemlink-finalassignment-frontend.vercel.app"],  
+    allow_origins=["https://stemlink-frontend-8hox.vercel.app"],  
     allow_credentials=True,
-    allow_methods=["https://stemlink-finalassignment-frontend.vercel.app"],
-    allow_headers=["https://stemlink-finalassignment-frontend.vercel.app"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 @app.exception_handler(Exception)
